@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football World Cup Score Board</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+        }
+        .controls, .summary {
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Football World Cup Score Board</h1>
+        <div class="controls">
+            <h2>Start a Game</h2>
+            <input type="text" id="homeTeam" placeholder="Home Team">
+            <input type="text" id="awayTeam" placeholder="Away Team">
+            <button onclick="startGame()">Start Game</button>
+        </div>
+        <div class="controls">
+            <h2>Finish a Game</h2>
+            <input type="text" id="finishHomeTeam" placeholder="Home Team">
+            <input type="text" id="finishAwayTeam" placeholder="Away Team">
+            <button onclick="finishGame()">Finish Game</button>
+        </div>
+        <div class="controls">
+            <h2>Update Score</h2>
+            <input type="text" id="updateHomeTeam" placeholder="Home Team">
+            <input type="text" id="updateAwayTeam" placeholder="Away Team">
+            <input type="number" id="homeScore" placeholder="Home Score">
+            <input type="number" id="awayScore" placeholder="Away Score">
+            <button onclick="updateScore()">Update Score</button>
+        </div>
+        <div class="summary">
+            <h2>Summary</h2>
+            <table id="summaryTable">
+                <thead>
+                    <tr>
+                        <th>Home Team</th>
+                        <th>Away Team</th>
+                        <th>Home Score</th>
+                        <th>Away Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="src/scoreboard.js"></script>
+    <script>
+        const scoreBoard = new FootballWorldCupScoreBoard();
+
+        function startGame() {
+            const homeTeam = document.getElementById('homeTeam').value;
+            const awayTeam = document.getElementById('awayTeam').value;
+            scoreBoard.startGame(homeTeam, awayTeam);
+            updateSummaryTable();
+        }
+
+        function finishGame() {
+            const homeTeam = document.getElementById('finishHomeTeam').value;
+            const awayTeam = document.getElementById('finishAwayTeam').value;
+            scoreBoard.finishGame(homeTeam, awayTeam);
+            updateSummaryTable();
+        }
+
+        function updateScore() {
+            const homeTeam = document.getElementById('updateHomeTeam').value;
+            const awayTeam = document.getElementById('updateAwayTeam').value;
+            const homeScore = parseInt(document.getElementById('homeScore').value);
+            const awayScore = parseInt(document.getElementById('awayScore').value);
+            scoreBoard.updateScore(homeTeam, awayTeam, homeScore, awayScore);
+            updateSummaryTable();
+        }
+
+        function updateSummaryTable() {
+            const summaryTable = document.getElementById('summaryTable').getElementsByTagName('tbody')[0];
+            summaryTable.innerHTML = '';
+            scoreBoard.getSummary().forEach(game => {
+                const row = summaryTable.insertRow();
+                row.insertCell(0).innerText = game.homeTeam;
+                row.insertCell(1).innerText = game.awayTeam;
+                row.insertCell(2).innerText = game.homeScore;
+                row.insertCell(3).innerText = game.awayScore;
+            });
+        }
+    </script>
+</body>
+</html>
