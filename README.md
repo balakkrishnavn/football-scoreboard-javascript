@@ -26,8 +26,8 @@ getSummary()
 
 
 ## How to run
-Download jasmine-standalone-5.1.2.zip(https://github.com/jasmine/jasmine/releases)
-copy scoreboard.js to src folder
-copy scoreboardSpec.js to spec folder
-replace and open specRunner.html and run Junit test
-open index.html in browser to open football score board
+- Download jasmine-standalone-5.1.2.zip(https://github.com/jasmine/jasmine/releases)
+- Copy scoreboard.js to src folder
+- Copy scoreboardSpec.js to spec folder
+- Replace and open specRunner.html and to run Junit test
+- Open index.html in browser for football score board
